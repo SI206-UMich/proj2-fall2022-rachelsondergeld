@@ -6,6 +6,8 @@ import csv
 import unittest
 
 
+#Name: Rachel Sondergeld
+
 def get_listings_from_search_results(html_file):
     """
     Write a function that creates a BeautifulSoup object on html_file. Parse
@@ -25,7 +27,20 @@ def get_listings_from_search_results(html_file):
         ('Loft in Mission District', 210, '1944564'),  # example
     ]
     """
-    pass
+    file = 'html_files/' + html_file
+    with open(file, 'r') as f:
+        
+        soup = BeautifulSoup(f, 'html.parser')
+        
+
+    listing_id_regex = 'https:\/\/www\.airbnb\.com\/rooms\/(\d+)'
+    title_of_listing_regex = 'title_\d+'
+    listing_detail_tuple = ()
+    listings_from_search_results_list = []
+
+    does_this_work = soup.select('#title_')
+    print(does_this_work)
+
 
 
 def get_listing_information(listing_id):
@@ -238,8 +253,13 @@ class TestCases(unittest.TestCase):
         pass
 
 
-if __name__ == '__main__':
-    database = get_detailed_listing_database("html_files/mission_district_search_results.html")
-    write_csv(database, "airbnb_dataset.csv")
-    check_policy_numbers(database)
-    unittest.main(verbosity=2)
+#if __name__ == '__main__':
+#    database = get_detailed_listing_database("html_files/mission_district_search_results.html")
+#    write_csv(database, "airbnb_dataset.csv")
+#    check_policy_numbers(database)
+#    unittest.main(verbosity=2)
+    
+def main():
+    get_listings_from_search_results('mission_district_search_results.html')
+
+main()
