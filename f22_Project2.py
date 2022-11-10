@@ -7,6 +7,7 @@ import unittest
 
 
 #Name: Rachel Sondergeld
+#Worked with: Emily Veguilla, instructors in office hours
 
 def get_listings_from_search_results(html_file):
     """
@@ -31,15 +32,31 @@ def get_listings_from_search_results(html_file):
     with open(file, 'r') as f:
         
         soup = BeautifulSoup(f, 'html.parser')
-        
 
-    listing_id_regex = 'https:\/\/www\.airbnb\.com\/rooms\/(\d+)'
-    title_of_listing_regex = 'title_\d+'
-    listing_detail_tuple = ()
-    listings_from_search_results_list = []
+    # f=open(html_file)
+    # soup = BeautifulSoup(f, 'html.parser')
+    # f.close    
 
-    does_this_work = soup.select('#title_')
-    print(does_this_work)
+    tags_for_a = []
+    nums_for_id = []
+
+    get_the_title = soup.find_all('a',class_='ln2bl2p dir dir-ltr')
+    regex = 'listing_(.)*'
+
+    for title in get_the_title:
+        if re.search(regex, str(title)):
+            tags_for_a.append(title.get('target'))
+
+    for listing in tags_for_a:
+        listing.lstrip('listing_')
+        nums_for_id.append(listing.lstrip('listing_'))
+
+    for x in nums_for_id:
+        name = 'html_files/listing_' + x + '.html'
+        f = open(name)
+        soup = BeautifulSoup(f, 'html.parser')
+        title_of_listing = soup.find('title')
+        print(title_of_listing.text)
 
 
 
