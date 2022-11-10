@@ -39,6 +39,7 @@ def get_listings_from_search_results(html_file):
 
     tags_for_a = []
     nums_for_id = []
+    cost_list = []
 
     get_the_title = soup.find_all('a',class_='ln2bl2p dir dir-ltr')
     regex = 'listing_(.)*'
@@ -47,16 +48,34 @@ def get_listings_from_search_results(html_file):
         if re.search(regex, str(title)):
             tags_for_a.append(title.get('target'))
 
+    #Working on Cost
+    get_the_cost = soup.find_all('a',class_='ln2bl2p dir dir-ltr')
+    regex_2 = '$\d+'
+
+    for cost in get_the_cost:
+        if re.search(regex_2, str(cost)):
+            cost_list.append(cost.get('span'))
+    print(cost_list)
+
+    #Working on Cost
+
     for listing in tags_for_a:
         listing.lstrip('listing_')
         nums_for_id.append(listing.lstrip('listing_'))
+    #print(nums_for_id)
 
+    title_list = []
     for x in nums_for_id:
         name = 'html_files/listing_' + x + '.html'
         new_file = open(name, encoding = 'utf8')
         soup = BeautifulSoup(new_file, 'html.parser')
         title_of_listing = soup.find('title')
-        print(title_of_listing.text)
+        listing_list = title_of_listing.text.split(" - ")
+        title_list.append(listing_list[0])
+
+    
+    
+    
 
 
 
