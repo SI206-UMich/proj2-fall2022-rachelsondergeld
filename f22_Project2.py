@@ -53,8 +53,8 @@ def get_listings_from_search_results(html_file):
 
     for x in nums_for_id:
         name = 'html_files/listing_' + x + '.html'
-        f = open(name)
-        soup = BeautifulSoup(f, 'html.parser')
+        new_file = open(name, encoding = 'utf8')
+        soup = BeautifulSoup(new_file, 'html.parser')
         title_of_listing = soup.find('title')
         print(title_of_listing.text)
 
