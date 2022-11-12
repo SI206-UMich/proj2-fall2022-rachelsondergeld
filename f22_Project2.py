@@ -21,7 +21,6 @@ def get_listings_from_search_results(html_file):
     The listing id is found in the url of a listing. For example, for
         https://www.airbnb.com/rooms/1944564
     the listing id is 1944564.
-.
 
     [
         ('Title of Listing 1', 'Cost 1', 'Listing ID 1'),  # format
@@ -72,12 +71,6 @@ def get_listings_from_search_results(html_file):
         title_of_listing = soup.find('title')
         listing_list = title_of_listing.text.split(" - ")
         title_list.append(listing_list[0])
-
-    
-    
-    
-
-
 
 def get_listing_information(listing_id):
     """
